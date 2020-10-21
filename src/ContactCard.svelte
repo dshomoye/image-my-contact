@@ -60,7 +60,7 @@
   <div class={cardStyle}>
     <p>{name}</p>
     <hr />
-    <div class="flex space-x-3 my-5 items-center">
+    <div class="flex space-x-5 mt-5 items-center">
       <div>
         <a
           class={btnStyle}
@@ -73,8 +73,8 @@
         </a>
       </div>
       <label
-        class="text-gray-500 text-sm hover:text-gray-700 items-center"
-        title="Apply this image to the vcard file.">
+        class="text-gray-600 text-sm hover:text-blue-800 items-center"
+        title="Apply image to contact in vcard.">
         <input
           class="mr-1 leading-tight"
           type="checkbox"

@@ -9,6 +9,7 @@
     "devDependencies": {
         "@rollup/plugin-commonjs": "^14.0.0",
         "@rollup/plugin-node-resolve": "^8.0.0",
+        "@types/vcf": "^2.0.2",
         "cntl": "^1.0.0",
         "postcss": "^8.0.9",
         "postcss-load-config": "^2.1.0",
@@ -21,8 +22,9 @@
         "tailwindcss": "^1.8.10"
     },
     "dependencies": {
-        "sirv-cli": "^1.0.0",
         "a-avataaar": "git+https://github.com/dshomoye/a-avataaar.git",
-        "canvg": "^3.0.7"
+        "canvg": "^3.0.7",
+        "sirv-cli": "^1.0.0",
+        "vcf": "^2.1.0"
     }
 }

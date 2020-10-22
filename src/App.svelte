@@ -89,16 +89,16 @@
     🖼 Image 💪🏾 Contact 📇
   </h1>
   {#if contacts && contacts.length > 0}
-    <div>
-      <p class="text-sm">Start Over?</p>
-      <button
-        on:click={() => (contacts = [])}
+    <div class="mb-12">
+      <a
+        on:click|preventDefault={() => (contacts = [])}
         class={cntl`px-3 py-2 rounded 
-          shadow-sm m-1 mb-5 transition 
+          shadow-sm m-1 mb-24 transition 
           duration-200 hover:bg-red-400 
-          transform hover:scale-105 border-red-900 border`}>
-        Clear ❌
-      </button>
+          transform hover:scale-105 border-red-900 border`}
+          href="/">
+          Clear & Start Over?
+        </a>
     </div>
   {:else}
     <div class="mb-12">

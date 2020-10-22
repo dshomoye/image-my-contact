@@ -2,18 +2,19 @@
   import "a-avataaar";
   import { blur } from "svelte/transition";
   import cntl from "cntl";
-  import { onMount } from "svelte";
+  import { onMount, createEventDispatcher } from "svelte";
   import { updateSVgWithStyle } from "./utils";
   import Canvg from "canvg";
   import DownloadIcon from "./DownloadIcon.svelte";
 
-  export const name = "John Smith";
-  export const contactIndex = null;
+  const dispatch = createEventDispatcher()
+
+  export let name = "John Smith";
+
   let svgFile = "";
   let canvasRef;
   let svgString;
   let svgCtx;
-  let pngBlob;
   let applyImage = false;
 
   onMount(() => {
@@ -33,17 +34,18 @@
       shadow bg-transparent hover:bg-blue-400
       hover:text-white focus:shadow-outline 
       focus:outline-none px-4 py-2 rounded 
-      text-sm cursor-pointer no-underline 
+      text-sm cursor-pointer no-underline
+      border border-gray-700 hover:border-gray-300
       hover:no-underline ${applyImage ? `bg-white` : `bg-transparent`}
       `;
   }
 
-  const setImageBlob = (event) => {
-    applyImage = event.target.checked;
+  const handleCheck = () => {
     if (applyImage) {
       Canvg.fromString(svgCtx, svgString).render();
-      pngBlob = canvasRef.toDataURL("image/png");
-      console.log("set image blob");
+      dispatch("applyphoto", {data: canvasRef.toDataURL("image/png").split(';base64,')[1]})
+    } else {
+      dispatch("unapplyphoto")
     }
   };
 
@@ -60,17 +62,26 @@
   .card {
     min-width: 160px;
   }
+  .avatar {
+    --avataaar-width: 80px;
+  }
+
+  @media(min-width: 768px) {
+    .card {
+      min-width: 120px;
+    }
+  }
 </style>
 
 <div
   class="transform hover:scale-105 transition duration-200 ease-in"
   transition:blur>
   <div class="rounded-full">
-    <a-avataaar identifier={name} on:svgchange={handleSvgChange} />
+    <a-avataaar identifier={name} on:svgchange={handleSvgChange} class="avatar" />
   </div>
   <div class={cardStyle}>
     <p>{name}</p>
-    <hr class="border-gray-500" />
+    <hr class="border-gray-500 my-2" />
     <div class="flex mt-5 items-center">
       <div class="m-auto">
         <a
@@ -91,7 +102,8 @@
             class="mr-1 leading-tight"
             type="checkbox"
             download={`${name}-avatar.svg`}
-            on:change={setImageBlob} />
+            bind:checked={applyImage}
+            on:change={handleCheck} />
           <span>{applyImage ? 'Remove' : 'Update'}</span>
         </label>
       </div>

@@ -5,7 +5,7 @@
   import cntl from "cntl";
   import UploadIcon from "./UploadIcon.svelte";
   import DownloadIcon from "./DownloadIcon.svelte";
-  import {fly} from "svelte/transition"
+  import { fly } from "svelte/transition";
 
   const fReader = new FileReader();
   /**@type {vCard[]} */
@@ -21,6 +21,8 @@
    * @type {Object<string,UpdatePayload>}
    */
   let contactsToUpdate = {};
+
+  let updateFileUrl="";
 
   const uploadBtnStyle = cntl`
 	flex flex-col items-center p-4 bg-white 
@@ -41,6 +43,24 @@
     contactsToUpdate[index] = null;
     delete contactsToUpdate[index];
   };
+
+  $: {
+    try {
+      Object.keys(contactsToUpdate).map((k) => {
+        const cIndex = parseInt(k)
+        const c = contacts[cIndex];
+        c.set("photo", contactsToUpdate[k].blob, { encoding: "b", type: "png" });
+        contacts[cIndex] = c
+      });
+      if(contacts.length > 1) {
+        console.log(contacts.map(c => c.toString()).join("\r\n"))
+        const updatedContacts = contacts.map(c => c.toString()).join("\r\n")
+        updateFileUrl = "data:text/plain;charset=utf-8," + encodeURIComponent(updatedContacts)
+      }
+    } catch(err) {
+      console.error(err)
+    }
+  }
 
   fReader.onload = (e) => {
     if (e.target.readyState != 2) return;
@@ -67,7 +87,7 @@
           shadow-sm m-1 mb-5 transition 
           duration-200 hover:bg-red-400 
           transform hover:scale-105 border-red-900 border`}>
-          Clear ❌
+        Clear ❌
       </button>
     </div>
   {:else}
@@ -89,7 +109,8 @@
       </p>
     </div>
   {/if}
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 px-8">
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 px-8">
     {#each contacts as contact, i}
       {#if contact.data.fn.valueOf() && true}
         <ContactCard
@@ -100,15 +121,16 @@
     {/each}
   </div>
   {#if contacts && contacts.length > 0}
-      <button 
-        transition:fly={{y: 100, duration: 1000}}
-        class={cntl`rounded-full bg-blue-500 p-5 
+    <a
+      transition:fly={{ y: 100, duration: 1000 }}
+      class={cntl`rounded-full bg-blue-500 p-5 
         text-white shadow-xl transform transition 
         hover:scale-110 hover:shadow-2xl fixed 
         fab focus:outline-none`}
-        >
-        <DownloadIcon />
-      </button>
+      href={updateFileUrl}
+      download="newcontacts.vcf">
+      <DownloadIcon />
+      </a>
   {/if}
 </main>
 
@@ -117,7 +139,7 @@
     right: 2rem;
     bottom: 2rem;
   }
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     .fab {
       right: 8rem;
     }

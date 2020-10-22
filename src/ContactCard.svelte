@@ -58,6 +58,7 @@
     const res = await fetch(dataurl);
     const blob = await res.blob();
     svgFile = URL.createObjectURL(blob);
+    handleCheck();
   };
 
   const shufflenameSeed = () => {

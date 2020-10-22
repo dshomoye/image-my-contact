@@ -7,7 +7,7 @@
   import Canvg from "canvg";
   import DownloadIcon from "./DownloadIcon.svelte";
 
-  const dispatch = createEventDispatcher()
+  const dispatch = createEventDispatcher();
 
   export let name = "John Smith";
 
@@ -16,6 +16,7 @@
   let svgString;
   let svgCtx;
   let applyImage = false;
+  let nameSeed = name;
 
   onMount(() => {
     svgCtx = canvasRef.getContext("2d");
@@ -43,9 +44,11 @@
   const handleCheck = () => {
     if (applyImage) {
       Canvg.fromString(svgCtx, svgString).render();
-      dispatch("applyphoto", {data: canvasRef.toDataURL("image/png").split(';base64,')[1]})
+      dispatch("applyphoto", {
+        data: canvasRef.toDataURL("image/png").split(";base64,")[1],
+      });
     } else {
-      dispatch("unapplyphoto")
+      dispatch("unapplyphoto");
     }
   };
 
@@ -55,6 +58,15 @@
     const res = await fetch(dataurl);
     const blob = await res.blob();
     svgFile = URL.createObjectURL(blob);
+  };
+
+  const shufflenameSeed = () => {
+    nameSeed = nameSeed
+      .split("")
+      .sort(function () {
+        return 0.5 - Math.random();
+      })
+      .join("");
   };
 </script>
 
@@ -66,7 +78,7 @@
     --avataaar-width: 80px;
   }
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     .card {
       min-width: 120px;
     }
@@ -77,10 +89,21 @@
   class="transform hover:scale-105 transition duration-200 ease-in"
   transition:blur>
   <div class="rounded-full">
-    <a-avataaar identifier={name} on:svgchange={handleSvgChange} class="avatar" />
+    <a-avataaar
+      identifier={nameSeed}
+      on:svgchange={handleSvgChange}
+      class="avatar" />
   </div>
   <div class={cardStyle}>
     <p>{name}</p>
+    <div>
+      <button
+        class={cntl`ml-2 rounded border 
+        border-blue-600 px-2 py-1 hover:bg-blue-600 
+        hover:text-white text-xs`}
+        title="Shuffle the generated icon"
+        on:click={shufflenameSeed}>shuffle</button>
+    </div>
     <hr class="border-gray-500 my-2" />
     <div class="flex mt-5 items-center">
       <div class="m-auto">

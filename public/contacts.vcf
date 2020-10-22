@@ -1,0 +1,18 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Alan Poe
+N:;Alan Poe;;;
+CATEGORIES:myContacts
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+FN:Jane Doe
+N:Doe;Jane;;;
+CATEGORIES:myContacts
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+FN:John Smith
+N:Smith;John;;;
+CATEGORIES:myContacts
+END:VCARD

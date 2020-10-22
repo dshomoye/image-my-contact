@@ -1,11 +1,12 @@
 <script>
-  import "./Tailwindcss.svelte";
-  import ContactCard from "./ContactCard.svelte";
+  import { fly } from "svelte/transition";
   import vCard from "vcf";
   import cntl from "cntl";
+
+  import "./Tailwindcss.svelte";
+  import ContactCard from "./ContactCard.svelte";
   import UploadIcon from "./UploadIcon.svelte";
   import DownloadIcon from "./DownloadIcon.svelte";
-  import { fly } from "svelte/transition";
 
   const fReader = new FileReader();
   /**@type {vCard[]} */
@@ -53,12 +54,21 @@
         contacts[cIndex] = c
       });
       if(contacts.length > 1) {
-        console.log(contacts.map(c => c.toString()).join("\r\n"))
         const updatedContacts = contacts.map(c => c.toString()).join("\r\n")
         updateFileUrl = "data:text/plain;charset=utf-8," + encodeURIComponent(updatedContacts)
       }
     } catch(err) {
       console.error(err)
+    }
+  }
+
+  const setSample = async () => {
+    try {
+      const res = await fetch('/contacts.vcf')
+      const sampleStr = await res.text()
+      contacts = vCard.parse(sampleStr)
+    } catch(error) {
+      console.error(error)
     }
   }
 
@@ -101,12 +111,23 @@
             type="file"
             class="hidden"
             on:change={(e) => fReader.readAsText(e.target.files[0])}
-            accept=".vcf" />
+            accept=".vcf,text/vcard" />
         </label>
       </div>
       <p class="block text-sm py-4">
         Only contacts without photos will be loaded.
       </p>
+      <hr class="mb-5 shadow-sm"/>
+      <div>
+        <button 
+          name="sample" 
+          class="hover:underline hover:text-red-600 text-sm focus:outline-none" 
+          title="Load a sample vcard"
+          on:click={setSample}
+        >
+            ↘️ Use sample contacts
+        </button>
+      </div>
     </div>
   {/if}
   <div
@@ -128,6 +149,7 @@
         hover:scale-110 hover:shadow-2xl fixed 
         fab focus:outline-none`}
       href={updateFileUrl}
+      title="Download updated vCard file."
       download="newcontacts.vcf">
       <DownloadIcon />
       </a>

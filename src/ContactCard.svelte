@@ -1,10 +1,11 @@
 <script>
   import "a-avataaar";
-  import { blur } from "svelte/transition";
-  import cntl from "cntl";
-  import { onMount, createEventDispatcher } from "svelte";
-  import { updateSVgWithStyle } from "./utils";
   import Canvg from "canvg";
+  import cntl from "cntl";
+  import { blur } from "svelte/transition";
+  import { onMount, createEventDispatcher } from "svelte";
+  
+  import { updateSVgWithStyle } from "./utils";
   import DownloadIcon from "./DownloadIcon.svelte";
 
   const dispatch = createEventDispatcher();

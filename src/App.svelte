@@ -7,6 +7,7 @@
   import ContactCard from "./ContactCard.svelte";
   import UploadIcon from "./UploadIcon.svelte";
   import DownloadIcon from "./DownloadIcon.svelte";
+import HelpModal from "./HelpModal.svelte";
 
   const fReader = new FileReader();
   /**@type {vCard[]} */
@@ -155,6 +156,7 @@
       </a>
   {/if}
 </main>
+<HelpModal />
 
 <style>
   .fab {

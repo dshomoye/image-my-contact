@@ -32,16 +32,17 @@
   shadow-lg rounded-lg`}>
     <article>
       <p>
-        You can export a vcard of your Google contacts as vCards by following
+        You can export a vCard of your Google contacts by following
         the instructions
         <a
           class="underline"
           href="https://support.google.com/contacts/answer/7199294?co=GENIE.Platform%3DDesktop&hl=en">here</a>
         or search for instructions for any other service. To not risk overriding
-        any photos, only contacts without any photos can be updated. Shuffle and
-        select contacts you wish to generate an image for then download the
-        generated vCard file. The downloaded vCard file can be imported back and
-        duplicate contacts can be resolved or deleted afterwards.
+        existing photos, only contacts without a photo are shown. Shuffle and
+        select contacts you wish to generate an image for, then download the
+        generated vCard file. Only contacts marked as "update" will have photos attached in the vCard. 
+        The downloaded vCard file can be imported back into Google contacts or anywhere else.
+        You can also download any individual generated svg.
       </p>
       <button
         class={cntl`

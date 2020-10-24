@@ -98,7 +98,7 @@ import HelpModal from "./HelpModal.svelte";
           duration-200 hover:bg-red-400 
           transform hover:scale-105 border-red-900 border`}
           href="/">
-          Clear & Start Over?
+          Reset.
         </a>
     </div>
   {:else}
@@ -126,7 +126,7 @@ import HelpModal from "./HelpModal.svelte";
           title="Load a sample vcard"
           on:click={setSample}
         >
-            ↘️ Use sample contacts
+            :use example contacts:
         </button>
       </div>
     </div>

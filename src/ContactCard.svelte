@@ -17,7 +17,7 @@
   let svgString;
   let svgCtx;
   let applyImage = false;
-  let nameSeed = name;
+  let shuffledName = name;
 
   onMount(() => {
     svgCtx = canvasRef.getContext("2d");
@@ -35,7 +35,7 @@
     btnStyle = cntl`
       shadow bg-transparent hover:bg-blue-400
       hover:text-white focus:shadow-outline 
-      focus:outline-none px-4 py-2 rounded 
+      focus:outline-none px-4 py-2 rounded
       text-sm cursor-pointer no-underline
       border border-gray-700 hover:border-gray-300
       hover:no-underline ${applyImage ? `bg-white` : `bg-transparent`}
@@ -63,7 +63,7 @@
   };
 
   const shufflenameSeed = () => {
-    nameSeed = nameSeed
+    shuffledName = shuffledName
       .split("")
       .sort(function () {
         return 0.5 - Math.random();
@@ -85,6 +85,9 @@
       min-width: 120px;
     }
   }
+  a {
+    -webkit-appearance: none;
+  }
 </style>
 
 <div
@@ -92,7 +95,7 @@
   transition:blur>
   <div class="rounded-full">
     <a-avataaar
-      identifier={nameSeed}
+      identifier={shuffledName}
       on:svgchange={handleSvgChange}
       class="avatar" />
   </div>
@@ -110,13 +113,14 @@
     <div class="flex mt-5 items-center">
       <div class="m-auto">
         <a
-          class={btnStyle}
           type="button"
-          title="Save image as SVG file."
+          title="Save SVG file."
           href={svgFile}
           target="_blank"
           download={`${name}-avatar.svg`}>
-          <DownloadIcon />
+          <span class={btnStyle}>
+            Save SVG
+          </span>
         </a>
       </div>
       <div class="m-auto">

@@ -9,7 +9,7 @@
   .modal {
     top: 20%;
     left: 50%;
-    width: 26rem;
+    width: 28rem;
     margin-left: -12rem;
   }
   .ribbon {
@@ -37,12 +37,15 @@
         <a
           class="underline"
           href="https://support.google.com/contacts/answer/7199294?co=GENIE.Platform%3DDesktop&hl=en">here</a>
-        or search for instructions for any other service. To not risk overriding
-        existing photos, only contacts without a photo are shown. Shuffle and
-        select contacts you wish to generate an image for, then download the
-        generated vCard file. Only contacts marked as "update" will have photos attached in the vCard. 
-        The downloaded vCard file can be imported back into Google contacts or anywhere else.
-        You can also download any individual generated svg.
+        or search for instructions for any other service. 
+        <br/>To not risk overriding
+        existing photos, only contacts without a photo are shown/modified.
+        <br/> Shuffle and
+        select (by checking the "update" checkbox) contacts you wish to generate an image for, then download the
+        generated vCard file. 
+        <br/> Only contacts marked as "update" (green background) will have photos attached in the vCard. 
+        The downloaded vCard file can be imported back into Google contacts or anywhere other contact service.
+        <br/> You can also download individual generated svg.
       </p>
       <button
         class={cntl`

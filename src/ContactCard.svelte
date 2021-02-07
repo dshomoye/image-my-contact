@@ -6,7 +6,6 @@
   import { onMount, createEventDispatcher } from "svelte";
   
   import { updateSVgWithStyle } from "./utils";
-  import DownloadIcon from "./DownloadIcon.svelte";
 
   const dispatch = createEventDispatcher();
 

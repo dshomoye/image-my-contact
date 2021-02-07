@@ -7,7 +7,7 @@
   import ContactCard from "./ContactCard.svelte";
   import UploadIcon from "./UploadIcon.svelte";
   import DownloadIcon from "./DownloadIcon.svelte";
-import HelpModal from "./HelpModal.svelte";
+  import HelpModal from "./HelpModal.svelte";
 
   const fReader = new FileReader();
   /**@type {vCard[]} */
@@ -122,7 +122,7 @@ import HelpModal from "./HelpModal.svelte";
       <div>
         <button 
           name="sample" 
-          class="hover:underline hover:text-red-600 text-sm focus:outline-none" 
+          class="underline hover:text-red-600 text-sm focus:outline-none" 
           title="Load a sample vcard"
           on:click={setSample}
         >
@@ -155,6 +155,7 @@ import HelpModal from "./HelpModal.svelte";
       <DownloadIcon />
       </a>
   {/if}
+  <div>Made by <a href="https://github.com/dshomoye" class="underline hover:text-red-500">@dshomoye</a></div>
 </main>
 <HelpModal />
 
